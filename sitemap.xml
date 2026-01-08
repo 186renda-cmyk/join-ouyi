@@ -17,7 +17,27 @@
    </url>
    <url>
       <loc>https://join-ouyi.top/blog/faq.html</loc>
-      <lastmod>2025-12-23</lastmod>
+      <lastmod>2026-01-08</lastmod>
       <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>https://join-ouyi.top/help/index.html</loc>
+      <lastmod>2026-01-08</lastmod>
+      <priority>0.70</priority>
+   </url>
+   <url>
+      <loc>https://join-ouyi.top/legal/privacy.html</loc>
+      <lastmod>2026-01-08</lastmod>
+      <priority>0.50</priority>
+   </url>
+   <url>
+      <loc>https://join-ouyi.top/legal/terms.html</loc>
+      <lastmod>2026-01-08</lastmod>
+      <priority>0.50</priority>
+   </url>
+   <url>
+      <loc>https://join-ouyi.top/legal/risk.html</loc>
+      <lastmod>2026-01-08</lastmod>
+      <priority>0.50</priority>
    </url>
 </urlset>
