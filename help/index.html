@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助中心 (Help Center) - Join Ouyi 官方合作通道</title>
+    <meta name="description" content="Join Ouyi 帮助中心。提供欧易 OKX 注册、认证、充值及交易的常见问题解答。">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22white%22/><path d=%22M20 35h12l8 12 8-12h12v30H48v-12l-8 12h-12l10-14-10-16z%22 fill=%22black%22 opacity=%220%22/><text x=%2250%22 y=%2262%22 font-family=%22Arial, sans-serif%22 font-weight=%22900%22 font-size=%2235%22 text-anchor=%22middle%22 fill=%22black%22 tracking=%22-2%22>OKX</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        page: '#050505',
+                        card: '#121212',
+                        border: '#27272a',
+                        primary: '#2955FF',
+                        'primary-hover': '#1d4ed8',
+                        txt: { main: '#ffffff', muted: '#a1a1aa' }
+                    },
+                    fontFamily: {
+                        sans: ['ui-sans-serif','system-ui','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav { background: rgba(5, 5, 5, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+        .help-card { transition: all 0.3s ease; }
+        .help-card:hover { transform: translateY(-4px); border-color: rgba(41, 85, 255, 0.4); box-shadow: 0 10px 30px -10px rgba(41, 85, 255, 0.2); }
+    </style>
+</head>
+<body class="bg-page text-txt-main font-sans antialiased">
+
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/[0.08] glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="group flex items-center gap-3 cursor-pointer select-none">
+                <div class="relative flex items-center justify-center w-10 h-10 bg-white text-black rounded-xl font-black text-xl tracking-tighter">OKX</div>
+                <div class="flex flex-col justify-center">
+                    <span class="text-sm font-bold text-white tracking-wide leading-none group-hover:text-primary transition-colors">Join Ouyi</span>
+                    <span class="text-[10px] text-txt-muted uppercase tracking-[0.1em] scale-90 origin-left mt-1 opacity-80">Help Center</span>
+                </div>
+            </a>
+            <a href="/" class="text-sm text-txt-muted hover:text-white transition-colors">返回首页</a>
+        </div>
+    </nav>
+
+    <!-- Hero Search -->
+    <section class="pt-40 pb-20 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
+        </div>
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-6">我们能帮到您什么？</h1>
+            <p class="text-txt-muted text-lg mb-10">搜索常见问题，或浏览下方的帮助主题。</p>
+            
+            <div class="relative max-w-xl mx-auto group">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-75 transition duration-500"></div>
+                <div class="relative flex items-center bg-card rounded-2xl border border-white/10 overflow-hidden p-2">
+                    <svg class="w-6 h-6 text-txt-muted ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" placeholder="搜索问题 (例如: 如何充值)" class="w-full bg-transparent text-white px-4 py-3 focus:outline-none placeholder-gray-500">
+                    <button class="bg-primary hover:bg-primary-hover text-white px-6 py-2 rounded-xl font-bold transition-colors">搜索</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-12 px-6 max-w-7xl mx-auto relative z-10">
+        <div class="grid md:grid-cols-3 gap-6">
+            <a href="/blog/guide.html#register-guide" class="help-card bg-card border border-white/5 p-8 rounded-3xl block group">
+                <div class="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">新手起步</h3>
+                <p class="text-txt-muted text-sm">注册流程、身份认证 (KYC)、账户安全设置指引。</p>
+            </a>
+
+            <a href="/blog/guide.html#deposit-tutorial" class="help-card bg-card border border-white/5 p-8 rounded-3xl block group">
+                <div class="w-12 h-12 bg-green-500/20 rounded-2xl flex items-center justify-center text-green-400 mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">充值与买币</h3>
+                <p class="text-txt-muted text-sm">C2C 买币、链上转账充值、信用卡购买教程。</p>
+            </a>
+
+            <a href="/blog/faq.html" class="help-card bg-card border border-white/5 p-8 rounded-3xl block group">
+                <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">常见问题 (FAQ)</h3>
+                <p class="text-txt-muted text-sm">邀请码补填、手续费说明、提现限制等热门问答。</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Popular Articles -->
+    <section class="py-12 px-6 max-w-3xl mx-auto border-t border-white/5">
+        <h2 class="text-2xl font-bold text-white mb-8">热门文章</h2>
+        <div class="space-y-4">
+            <a href="/blog/guide.html" class="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-colors group border-b border-white/5 last:border-0">
+                <span class="text-txt-muted group-hover:text-white transition-colors">如何领取 100 USDT 新手盲盒？</span>
+                <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="/blog/faq.html" class="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-colors group border-b border-white/5 last:border-0">
+                <span class="text-txt-muted group-hover:text-white transition-colors">OKX 交易所安全吗？是否有储备金证明？</span>
+                <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="/blog/guide.html#ios-guide" class="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-colors group border-b border-white/5 last:border-0">
+                <span class="text-txt-muted group-hover:text-white transition-colors">iOS 无法下载 OKX APP 怎么办？(Apple ID 教程)</span>
+                <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-8 border-t border-white/10 text-center text-sm text-txt-muted relative z-10 mt-12">
+        <p>&copy; 2025 Join Ouyi. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
