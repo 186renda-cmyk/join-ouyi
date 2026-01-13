@@ -55,6 +55,21 @@
              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
         </div>
         <div class="max-w-3xl mx-auto text-center relative z-10">
+            <nav aria-label="Breadcrumb" class="mb-8 flex justify-center">
+                <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="flex flex-wrap items-center gap-2 text-sm text-txt-muted">
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/" class="hover:text-primary transition-colors">
+                            <span itemprop="name">首页</span>
+                        </a>
+                        <meta itemprop="position" content="1" />
+                    </li>
+                    <li class="text-txt-muted/50" aria-hidden="true">/</li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <span itemprop="name" class="text-white" aria-current="page">帮助中心</span>
+                        <meta itemprop="position" content="2" />
+                    </li>
+                </ol>
+            </nav>
             <h1 class="text-4xl md:text-6xl font-black text-white mb-6">我们能帮到您什么？</h1>
             <p class="text-txt-muted text-lg mb-10">搜索常见问题，或浏览下方的帮助主题。</p>
             

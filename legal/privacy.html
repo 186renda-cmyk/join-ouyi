@@ -60,6 +60,26 @@
         </div>
 
         <div class="max-w-3xl mx-auto relative z-10">
+            <nav aria-label="Breadcrumb" class="mb-8">
+                <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="flex flex-wrap items-center gap-2 text-sm text-txt-muted">
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/" class="hover:text-primary transition-colors">
+                            <span itemprop="name">首页</span>
+                        </a>
+                        <meta itemprop="position" content="1" />
+                    </li>
+                    <li class="text-txt-muted/50" aria-hidden="true">/</li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <span itemprop="name" class="text-txt-muted">法律中心</span>
+                        <meta itemprop="position" content="2" />
+                    </li>
+                    <li class="text-txt-muted/50" aria-hidden="true">/</li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <span itemprop="name" class="text-white" aria-current="page">隐私政策</span>
+                        <meta itemprop="position" content="3" />
+                    </li>
+                </ol>
+            </nav>
             <header class="mb-12 border-b border-white/10 pb-8">
                 <div class="text-primary text-sm font-bold tracking-widest uppercase mb-4">Privacy Policy</div>
                 <h1 class="text-4xl md:text-5xl font-black text-white mb-6">隐私政策</h1>
