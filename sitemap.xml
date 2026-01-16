@@ -2,42 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://join-ouyi.top/</loc>
-      <lastmod>2025-12-23</lastmod>
+      <lastmod>2026-01-16</lastmod>
       <priority>1.00</priority>
    </url>
    <url>
-      <loc>https://join-ouyi.top/blog/safety.html</loc>
-      <lastmod>2025-12-23</lastmod>
+      <loc>https://join-ouyi.top/blog/</loc>
+      <lastmod>2026-01-16</lastmod>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://join-ouyi.top/blog/safety</loc>
+      <lastmod>2026-01-16</lastmod>
       <priority>0.80</priority>
    </url>
    <url>
-      <loc>https://join-ouyi.top/blog/guide.html</loc>
-      <lastmod>2025-12-23</lastmod>
+      <loc>https://join-ouyi.top/blog/guide</loc>
+      <lastmod>2026-01-16</lastmod>
       <priority>0.80</priority>
    </url>
    <url>
-      <loc>https://join-ouyi.top/blog/faq.html</loc>
-      <lastmod>2026-01-08</lastmod>
+      <loc>https://join-ouyi.top/blog/faq</loc>
+      <lastmod>2026-01-16</lastmod>
       <priority>0.80</priority>
    </url>
    <url>
-      <loc>https://join-ouyi.top/help/index.html</loc>
-      <lastmod>2026-01-08</lastmod>
+      <loc>https://join-ouyi.top/help/</loc>
+      <lastmod>2026-01-16</lastmod>
       <priority>0.70</priority>
    </url>
    <url>
-      <loc>https://join-ouyi.top/legal/privacy.html</loc>
-      <lastmod>2026-01-08</lastmod>
+      <loc>https://join-ouyi.top/legal/privacy</loc>
+      <lastmod>2026-01-16</lastmod>
       <priority>0.50</priority>
    </url>
    <url>
-      <loc>https://join-ouyi.top/legal/terms.html</loc>
-      <lastmod>2026-01-08</lastmod>
+      <loc>https://join-ouyi.top/legal/terms</loc>
+      <lastmod>2026-01-16</lastmod>
       <priority>0.50</priority>
    </url>
    <url>
-      <loc>https://join-ouyi.top/legal/risk.html</loc>
-      <lastmod>2026-01-08</lastmod>
+      <loc>https://join-ouyi.top/legal/risk</loc>
+      <lastmod>2026-01-16</lastmod>
       <priority>0.50</priority>
    </url>
 </urlset>
