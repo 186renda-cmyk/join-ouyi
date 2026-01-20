@@ -290,6 +290,9 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
             # Skip canonical/robots as we reconstruct them
             if tag.name == 'link' and tag.get('rel') == ['canonical']:
                 continue
+            # Skip hreflang as we reconstruct them
+            if tag.name == 'link' and 'alternate' in tag.get('rel', []):
+                continue
             if tag.name == 'meta': continue
             if tag.name == 'title': continue
             existing_assets.append(tag)
@@ -302,43 +305,55 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
         
         # Group A: Basic Meta
         head.append(soup.new_tag('meta', charset="utf-8"))
+        head.append('\n')
         head.append(soup.new_tag('meta', attrs={"name": "viewport", "content": "width=device-width, initial-scale=1.0"}))
+        head.append('\n')
         new_title = soup.new_tag('title')
         new_title.string = title_text
         head.append(new_title)
+        head.append('\n')
         
         # Group B: SEO Core
         if desc_content:
             head.append(soup.new_tag('meta', attrs={"name": "description", "content": desc_content}))
+            head.append('\n')
         if kw_content:
             head.append(soup.new_tag('meta', attrs={"name": "keywords", "content": kw_content}))
+            head.append('\n')
             
         # Canonical
         filename = os.path.basename(file_path)
         slug = filename.replace('.html', '')
         canonical_url = f"https://join-ouyi.top/blog/{slug}"
         head.append(soup.new_tag('link', rel="canonical", href=canonical_url))
+        head.append('\n')
         
         # Group C: Indexing & Geo
         head.append(soup.new_tag('meta', attrs={"name": "robots", "content": "index, follow"}))
+        head.append('\n')
         head.append(soup.new_tag('meta', attrs={"http-equiv": "content-language", "content": "zh-CN"}))
+        head.append('\n')
         
         # Hreflang
         for lang in ['zh-CN', 'zh', 'x-default']:
             head.append(soup.new_tag('link', rel="alternate", hreflang=lang, href=canonical_url))
+            head.append('\n')
             
         # Group D: Brand & Resources
         # Inject Favicons
         for icon in favicons:
             head.append(icon.__copy__())
+            head.append('\n')
             
         # Inject preserved assets (CSS/JS)
         for asset in existing_assets:
             head.append(asset)
+            head.append('\n')
             
         # Group E: Schema
         for schema in schemas:
             head.append(schema)
+            head.append('\n')
 
         # --- Phase 3: Content Injection ---
         
