@@ -902,17 +902,33 @@ def process_pages(files, nav_template, footer_template, favicons, all_posts, is_
         # 1. Layout Sync (Nav & Footer)
         if nav_template:
             old_nav = soup.find('nav')
+            new_nav = nav_template.__copy__()
+            
+            # Convert anchor links in nav to root-relative for ALL sub-pages
+            for a in new_nav.find_all('a'):
+                href = a.get('href')
+                if href and href.startswith('#'):
+                    a['href'] = '/' + href
+            
             if old_nav:
-                old_nav.replace_with(nav_template.__copy__())
+                old_nav.replace_with(new_nav)
             else:
-                if soup.body: soup.body.insert(0, nav_template.__copy__())
+                if soup.body: soup.body.insert(0, new_nav)
             
         if footer_template:
             old_footer = soup.find('footer')
+            new_footer = footer_template.__copy__()
+            
+            # Convert anchor links in footer to root-relative for ALL sub-pages
+            for a in new_footer.find_all('a'):
+                href = a.get('href')
+                if href and href.startswith('#'):
+                    a['href'] = '/' + href
+                        
             if old_footer:
-                old_footer.replace_with(footer_template.__copy__())
+                old_footer.replace_with(new_footer)
             else:
-                if soup.body: soup.body.append(footer_template.__copy__())
+                if soup.body: soup.body.append(new_footer)
             
         # 2. Sidebar Injection (Blog Only)
         if is_blog and not is_index:
