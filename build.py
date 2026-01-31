@@ -345,6 +345,86 @@ def update_blog_index_grid(soup, posts):
         li.append(article)
         grid_ul.append(li)
 
+def update_blog_index_schema(soup, posts):
+    """Update the JSON-LD schema in blog/index.html to include all articles."""
+    schema_tag = soup.find('script', type='application/ld+json')
+    if not schema_tag:
+        return
+
+    try:
+        data = json.loads(schema_tag.string)
+        
+        target_list = None
+        
+        # We prefer updating CollectionPage > mainEntity > ItemList
+        # Also we want to remove any standalone ItemList to avoid duplicates
+        
+        if '@graph' in data:
+            collection_page = None
+            standalone_item_list_indices = []
+            
+            for i, item in enumerate(data['@graph']):
+                if item.get('@type') == 'CollectionPage':
+                    collection_page = item
+                elif item.get('@type') == 'ItemList':
+                    standalone_item_list_indices.append(i)
+            
+            # If we have a CollectionPage, use its mainEntity
+            if collection_page:
+                if 'mainEntity' not in collection_page:
+                    collection_page['mainEntity'] = {"@type": "ItemList", "itemListElement": []}
+                elif collection_page['mainEntity'].get('@type') != 'ItemList':
+                     # If mainEntity exists but isn't ItemList, maybe wrap it or ignore? 
+                     # For this specific project, we overwrite/ensure it is ItemList
+                     collection_page['mainEntity'] = {"@type": "ItemList", "itemListElement": []}
+                
+                target_list = collection_page['mainEntity']
+                
+                # Remove standalone ItemLists as they are redundant
+                for i in sorted(standalone_item_list_indices, reverse=True):
+                    del data['@graph'][i]
+            
+            # Fallback: If no CollectionPage, use or create standalone ItemList
+            elif standalone_item_list_indices:
+                target_list = data['@graph'][standalone_item_list_indices[0]]
+            else:
+                 target_list = {
+                    "@type": "ItemList",
+                    "itemListElement": []
+                 }
+                 data['@graph'].append(target_list)
+                 
+        else:
+            # Not a graph, just a single object
+            if data.get('@type') == 'CollectionPage':
+                 if 'mainEntity' not in data:
+                    data['mainEntity'] = {"@type": "ItemList", "itemListElement": []}
+                 target_list = data['mainEntity']
+            elif data.get('@type') == 'ItemList':
+                target_list = data
+            
+        if target_list:
+            # Rebuild itemListElement
+            elements = []
+            valid_posts = [p for p in posts if not p['url'].endswith('/index')]
+            
+            for i, post in enumerate(valid_posts):
+                elements.append({
+                    "@type": "ListItem",
+                    "position": i + 1,
+                    "url": f"https://join-ouyi.top{post['url']}",
+                    "name": post['title']
+                })
+            
+            target_list['itemListElement'] = elements
+            target_list['numberOfItems'] = len(elements)
+            
+            # Update the tag
+            schema_tag.string = json.dumps(data, ensure_ascii=False, indent=2)
+            
+    except Exception as e:
+        print(f"Error updating schema: {e}")
+
 def create_sidebar(soup, all_posts, current_url):
     """Generate a high-end sidebar with CTA and latest articles."""
     aside = soup.new_tag('aside', **{'class': 'lg:col-span-4 space-y-8'})
@@ -612,6 +692,7 @@ def process_pages(files, nav_template, footer_template, favicons, all_posts, is_
         # Update Blog Index Grid (Blog Only)
         if is_blog and is_index:
             update_blog_index_grid(soup, all_posts)
+            update_blog_index_schema(soup, all_posts)
 
         # Remove hardcoded "Related Reading" section if exists
         for section in soup.find_all('section'):
@@ -625,7 +706,20 @@ def process_pages(files, nav_template, footer_template, favicons, all_posts, is_
                 href = a.get('href')
                 if href:
                     a['href'] = clean_link(href)
-                
+            
+            # Fix Breadcrumb Links (Web3 Knowledge Base)
+            if is_blog and not is_index:
+                nav_crumb = soup.find('nav', attrs={'aria-label': '面包屑导航'})
+                if nav_crumb:
+                    for a in nav_crumb.find_all('a'):
+                        # Check if it points to #blog or old anchor
+                        if a.get('href') in ['/#blog', '/blog/guide.html', '/blog/guide']: 
+                             # But wait, guide is the article. We want the parent category link.
+                             # Usually the breadcrumb is Home > Web3 Knowledge Base > Article
+                             # So we look for the one named "Web3 知识库"
+                             if "Web3" in a.get_text() or "知识库" in a.get_text():
+                                 a['href'] = "/blog/"
+
         write_file(file_path, str(soup))
 
 def main():

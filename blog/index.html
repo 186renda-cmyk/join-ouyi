@@ -34,9 +34,10 @@
         .article-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px -10px rgba(41, 85, 255, 0.15); }
     </style>
 
-<script type="application/ld+json">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "CollectionPage",
       "headline": "Web3 知识库 - Join Ouyi",
       "description": "Join Ouyi Web3 知识库，提供 OKX 交易所相关教程与评测。",
@@ -52,30 +53,66 @@
       },
       "mainEntity": {
         "@type": "ItemList",
-        "numberOfItems": 3,
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
             "url": "https://join-ouyi.top/blog/guide",
-            "name": "2026 新手开户指南：如何领取 100 USDT 盲盒？"
+            "name": "新手开户指南：如何领取 100 USDT 盲盒？"
           },
           {
             "@type": "ListItem",
             "position": 2,
-            "url": "https://join-ouyi.top/blog/safety",
-            "name": "OKX 交易所诈骗吗？资金安全深度分析"
+            "url": "https://join-ouyi.top/blog/faq",
+            "name": "OKX 常见问题解答：出金、费率与 PTT 评价"
           },
           {
             "@type": "ListItem",
             "position": 3,
-            "url": "https://join-ouyi.top/blog/faq",
-            "name": "OKX 常见问题解答：出金、费率与 PTT 评价"
+            "url": "https://join-ouyi.top/blog/okx-vs-binance",
+            "name": "OKX 和币安哪个好？ 深度对比评测：手续费、功能与安全性"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://join-ouyi.top/blog/safety",
+            "name": "欧易安全吗？深度评测：从技术、合规到用户争议"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://join-ouyi.top/blog/blockchain-query",
+            "name": "如何进行 OKX 区块链查询？新手必看的链上数据追踪指南"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://join-ouyi.top/blog/fee",
+            "name": "欧易提币手续费详解：USDT、BTC、ETH 最新费率表"
           }
-        ]
+        ],
+        "numberOfItems": 6
       }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://join-ouyi.top/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Web3 知识库",
+          "item": "https://join-ouyi.top/blog/"
+        }
+      ]
     }
-    </script>
+  ]
+}</script>
 </head>
 <body class="bg-page text-txt-main font-sans antialiased">
 <nav aria-label="全局导航" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/[0.08] bg-[#050505]/80 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#050505]/60">
@@ -103,7 +140,7 @@
 <div class="w-[1px] h-3 bg-white/10"></div>
 <a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="#faq"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">❓</span> 常见问题</a>
 <div class="w-[1px] h-3 bg-white/10"></div>
-<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="#blog"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">🌐</span> Web3 百科</a>
+<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="/blog/"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">🌐</span> Web3 百科</a>
 </div>
 <div class="flex items-center gap-6">
 <a class="relative group" href="#hero">
