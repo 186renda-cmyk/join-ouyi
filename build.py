@@ -92,7 +92,7 @@ def extract_blog_metadata():
                 break
 
         # Try to find date (schema or time tag)
-        date = "2024-01-01"
+        date = "2026-01-31"
         
         # Priority 1: Schema datePublished
         schema_tag = soup.find('script', type='application/ld+json')
@@ -105,7 +105,7 @@ def extract_blog_metadata():
                 pass
                 
         # Priority 2: time tag
-        if date == "2024-01-01":
+        if date == "2026-01-31":
             time_tag = soup.find('time')
             if time_tag and time_tag.get('datetime'):
                 date = time_tag['datetime']
