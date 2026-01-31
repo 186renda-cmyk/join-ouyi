@@ -220,11 +220,47 @@ def update_index_blog_section(soup, posts):
         grad_cls = gradients[len(post['title']) % len(gradients)]
         
         img_div = soup.new_tag('div', **{'class': f'h-48 bg-gradient-to-br {grad_cls} relative overflow-hidden'})
-        article.append(img_div)
         
         # Overlay
         overlay = soup.new_tag('div', **{'class': 'absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors'})
         img_div.append(overlay)
+
+        # Determine Category for Icon
+        cat = post.get('category', 'Web3')
+        
+        # Badge with Icon (Same style as blog index)
+        badge = soup.new_tag('div', **{'class': 'absolute top-4 left-4 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-bold text-white uppercase tracking-wider flex items-center gap-1.5 z-10'})
+        
+        # Icon
+        icon_svg = CATEGORY_ICONS.get(cat, CATEGORY_ICONS['Web3'])
+        # Parse SVG string to tag
+        icon_soup = BeautifulSoup(icon_svg, 'html.parser')
+        icon_tag = icon_soup.svg
+        # Fix viewBox casing for HTML parser
+        if icon_tag.has_attr('viewbox'):
+            icon_tag['viewBox'] = icon_tag['viewbox']
+            del icon_tag['viewbox']
+        badge.append(icon_tag)
+        
+        span_cat = soup.new_tag('span')
+        span_cat.string = cat.upper()
+        badge.append(span_cat)
+        
+        img_div.append(badge)
+
+        # Centered Big Icon (Watermark)
+        center_icon_div = soup.new_tag('div', **{'class': 'absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-30 group-hover:scale-110 transition-all duration-500'})
+        big_icon_soup = BeautifulSoup(icon_svg, 'html.parser')
+        big_icon_tag = big_icon_soup.svg
+        if big_icon_tag.has_attr('viewbox'):
+            big_icon_tag['viewBox'] = big_icon_tag['viewbox']
+            del big_icon_tag['viewbox']
+        # Change class to be larger
+        big_icon_tag['class'] = 'w-24 h-24 text-white'
+        center_icon_div.append(big_icon_tag)
+        img_div.append(center_icon_div)
+
+        article.append(img_div)
         
         content_div = soup.new_tag('div', **{'class': 'p-8 flex flex-col flex-grow'})
         
