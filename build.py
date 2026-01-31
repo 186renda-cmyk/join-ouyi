@@ -8,6 +8,9 @@ import re
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX_PATH = os.path.join(BASE_DIR, 'index.html')
 BLOG_DIR = os.path.join(BASE_DIR, 'blog')
+LEGAL_DIR = os.path.join(BASE_DIR, 'legal')
+HELP_DIR = os.path.join(BASE_DIR, 'help')
+SITEMAP_PATH = os.path.join(BASE_DIR, 'sitemap.xml')
 
 def read_file(path):
     with open(path, 'r', encoding='utf-8') as f:
@@ -49,6 +52,13 @@ def extract_blog_metadata():
         slug = filename.replace('.html', '')
         
         title = soup.title.string if soup.title else slug
+        if title:
+            # Clean title by removing suffix after |
+            if '|' in title:
+                title = title.split('|')[0]
+            # Remove years like 2024, 2025, 2026
+            title = re.sub(r'\s*202[0-9]\s*', ' ', title)
+            title = title.strip()
         
         # Try to find description
         desc = ""
@@ -58,9 +68,22 @@ def extract_blog_metadata():
             
         # Try to find date (schema or time tag)
         date = "2024-01-01"
-        time_tag = soup.find('time')
-        if time_tag and time_tag.get('datetime'):
-            date = time_tag['datetime']
+        
+        # Priority 1: Schema datePublished
+        schema_tag = soup.find('script', type='application/ld+json')
+        if schema_tag:
+            try:
+                data = json.loads(schema_tag.string)
+                if 'datePublished' in data:
+                    date = data['datePublished']
+            except:
+                pass
+                
+        # Priority 2: time tag
+        if date == "2024-01-01":
+            time_tag = soup.find('time')
+            if time_tag and time_tag.get('datetime'):
+                date = time_tag['datetime']
             
         posts.append({
             'title': title,
@@ -73,6 +96,72 @@ def extract_blog_metadata():
     # Sort by date (if possible) or just reverse
     posts.sort(key=lambda x: x['date'], reverse=True)
     return posts
+
+def update_sitemap(posts):
+    """Update sitemap.xml with all blog posts, updating timestamps if changed."""
+    if not os.path.exists(SITEMAP_PATH):
+        return
+
+    try:
+        # Read existing sitemap
+        with open(SITEMAP_PATH, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        soup = BeautifulSoup(content, 'xml')
+        urlset = soup.find('urlset')
+        
+        # Map existing URLs to their <url> tags
+        existing_entries = {}
+        for url_tag in urlset.find_all('url'):
+            loc = url_tag.find('loc')
+            if loc:
+                existing_entries[loc.text.strip()] = url_tag
+        
+        base_url = "https://join-ouyi.top"
+        updated_count = 0
+        added_count = 0
+        
+        for post in posts:
+            full_url = f"{base_url}{post['url']}"
+            new_date = post['date']
+            
+            if full_url in existing_entries:
+                # Check if date needs update
+                url_tag = existing_entries[full_url]
+                lastmod = url_tag.find('lastmod')
+                if lastmod and lastmod.text != new_date:
+                    lastmod.string = new_date
+                    updated_count += 1
+            else:
+                # Add new entry
+                new_url_tag = soup.new_tag('url')
+                
+                loc = soup.new_tag('loc')
+                loc.string = full_url
+                new_url_tag.append(loc)
+                
+                lastmod = soup.new_tag('lastmod')
+                lastmod.string = new_date
+                new_url_tag.append(lastmod)
+                
+                priority = soup.new_tag('priority')
+                priority.string = "0.80"
+                new_url_tag.append(priority)
+                
+                urlset.append(new_url_tag)
+                added_count += 1
+        
+        # Write back (using prettify might change format, so let's try to keep it simple or accept standard XML format)
+        # Using standard string conversion for BS4 XML
+        write_file(SITEMAP_PATH, str(soup))
+        
+        if added_count > 0 or updated_count > 0:
+            print(f"Sitemap updated: {added_count} added, {updated_count} timestamps updated.")
+        else:
+            print("Sitemap is up to date.")
+            
+    except Exception as e:
+        print(f"Error updating sitemap: {e}")
 
 def update_index_blog_section(soup, posts):
     """Update the blog section in index.html with latest posts."""
@@ -256,14 +345,83 @@ def update_blog_index_grid(soup, posts):
         li.append(article)
         grid_ul.append(li)
 
-def process_blog_files(nav_template, footer_template, favicons, all_posts):
-    blog_files = glob.glob(os.path.join(BLOG_DIR, '*.html'))
+def create_sidebar(soup, all_posts, current_url):
+    """Generate a high-end sidebar with CTA and latest articles."""
+    aside = soup.new_tag('aside', **{'class': 'lg:col-span-4 space-y-8'})
+    sticky_div = soup.new_tag('div', **{'class': 'sticky top-24 space-y-6'})
+    aside.append(sticky_div)
+
+    # 1. High-End CTA Card
+    cta_card = soup.new_tag('div', **{'class': 'relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a1a1a] to-black border border-white/10 group hover:border-primary/50 transition-all duration-500 shadow-2xl'})
     
-    for file_path in blog_files:
+    # Glow effect
+    glow = soup.new_tag('div', **{'class': 'absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-[50px] group-hover:bg-primary/30 transition-all duration-500'})
+    cta_card.append(glow)
+    
+    cta_content = soup.new_tag('div', **{'class': 'p-6 relative z-10 text-center'})
+    
+    # Icon or Badge
+    badge = soup.new_tag('div', **{'class': 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-4'})
+    badge.string = "限时福利"
+    cta_content.append(badge)
+    
+    h3 = soup.new_tag('h3', **{'class': 'text-2xl font-black text-white mb-2'})
+    h3.string = "注册 OKX"
+    cta_content.append(h3)
+    
+    p = soup.new_tag('p', **{'class': 'text-sm text-txt-muted mb-6'})
+    p.string = "领取最高 100 USDT 数字货币盲盒"
+    cta_content.append(p)
+    
+    btn = soup.new_tag('a', href="/#hero", **{'class': 'block w-full py-3.5 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300'})
+    btn.string = "立即领取"
+    cta_content.append(btn)
+    
+    cta_card.append(cta_content)
+    sticky_div.append(cta_card)
+
+    # 2. Latest/Relevant Articles List
+    list_card = soup.new_tag('div', **{'class': 'bg-card/50 backdrop-blur-sm border border-white/5 rounded-3xl p-6'})
+    list_title = soup.new_tag('h4', **{'class': 'text-sm font-bold text-white uppercase tracking-wider mb-4 opacity-80'})
+    list_title.string = "最新文章 (Latest)"
+    list_card.append(list_title)
+    
+    ul = soup.new_tag('ul', **{'class': 'space-y-4'})
+    
+    count = 0
+    for post in all_posts:
+        if post['url'] == current_url: continue
+        if post['url'].endswith('/index'): continue
+        if count >= 5: break
+        
+        li = soup.new_tag('li')
+        a = soup.new_tag('a', href=post['url'], **{'class': 'group flex gap-3 items-start'})
+        
+        # Number or Dot
+        dot = soup.new_tag('span', **{'class': 'mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0'})
+        a.append(dot)
+        
+        div_text = soup.new_tag('div')
+        h5 = soup.new_tag('h5', **{'class': 'text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed'})
+        h5.string = post['title']
+        div_text.append(h5)
+        
+        a.append(div_text)
+        li.append(a)
+        ul.append(li)
+        count += 1
+        
+    list_card.append(ul)
+    sticky_div.append(list_card)
+    
+    return aside
+
+def process_pages(files, nav_template, footer_template, favicons, all_posts, is_blog=False):
+    for file_path in files:
         print(f"Processing {file_path}...")
         soup = BeautifulSoup(read_file(file_path), 'html.parser')
         filename = os.path.basename(file_path)
-        is_blog_index = (filename == 'index.html')
+        is_index = (filename == 'index.html')
         
         # --- Phase 2: Head Reconstruction ---
         head = soup.head
@@ -274,6 +432,11 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
         # Extract existing metadata to preserve
         title_tag = head.find('title')
         title_text = title_tag.text if title_tag else "Join Ouyi"
+        
+        # Clean title text
+        if '|' in title_text:
+            title_text = title_text.split('|')[0]
+        title_text = re.sub(r'\s*202[0-9]\s*', ' ', title_text).strip()
         
         meta_desc = head.find('meta', attrs={'name': 'description'})
         desc_content = meta_desc['content'] if meta_desc else ""
@@ -322,9 +485,12 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
             head.append('\n')
             
         # Canonical
-        filename = os.path.basename(file_path)
-        slug = filename.replace('.html', '')
-        canonical_url = f"https://join-ouyi.top/blog/{slug}"
+        rel_path = os.path.relpath(file_path, BASE_DIR)
+        url_part = rel_path.replace(os.sep, '/').replace('.html', '')
+        if url_part.endswith('/index'):
+            url_part = url_part[:-6]
+        canonical_url = f"https://join-ouyi.top/{url_part}"
+
         head.append(soup.new_tag('link', rel="canonical", href=canonical_url))
         head.append('\n')
         
@@ -351,6 +517,18 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
             head.append('\n')
             
         # Group E: Schema
+        if not schemas:
+            schema_data = {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": title_text,
+                "description": desc_content,
+                "url": canonical_url
+            }
+            script_tag = soup.new_tag('script', type='application/ld+json')
+            script_tag.string = json.dumps(schema_data, ensure_ascii=False)
+            schemas.append(script_tag)
+
         for schema in schemas:
             head.append(schema)
             head.append('\n')
@@ -372,8 +550,29 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
             else:
                 if soup.body: soup.body.append(footer_template.__copy__())
             
-        # 3. Smart Recommendations
-        if not is_blog_index:
+        # 2. Sidebar Injection (Blog Only)
+        if is_blog and not is_index:
+            # Try to find aside to replace, or append to main if main is grid
+            main_tag = soup.find('main')
+            if main_tag:
+                # Assuming main has grid layout: grid-cols-1 lg:grid-cols-12
+                # We want to replace existing aside or insert new one
+                old_aside = main_tag.find('aside')
+                
+                # Generate new sidebar
+                current_url = f"/{url_part}"
+                new_aside = create_sidebar(soup, all_posts, current_url)
+                
+                if old_aside:
+                    old_aside.replace_with(new_aside)
+                else:
+                    # If no aside but main exists, check if we should add it
+                    # Only add if it looks like a blog post (has article)
+                    if main_tag.find('article'):
+                        main_tag.append(new_aside)
+
+        # 3. Smart Recommendations (Blog Only)
+        if is_blog and not is_index:
             article = soup.find('article')
             if article:
                 # Check if we already have recommendations to avoid duplicate
@@ -391,9 +590,9 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
                 # Add other posts as recommendations (exclude current and index)
                 count = 0
                 for post in all_posts:
-                    if post['url'] == f"/blog/{slug}": continue
+                    if post['url'] == f"/{url_part}": continue
                     if post['url'].endswith('/index'): continue # Skip blog index
-                    if count >= 2: break
+                    if count >= 4: break
                     
                     a_link = soup.new_tag('a', href=post['url'], **{'class': 'block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors'})
                     h4 = soup.new_tag('h4', **{'class': 'text-white font-bold mb-2'})
@@ -410,8 +609,8 @@ def process_blog_files(nav_template, footer_template, favicons, all_posts):
                 rec_section.append(rec_grid)
                 article.append(rec_section)
         
-        # Update Blog Index Grid
-        if is_blog_index:
+        # Update Blog Index Grid (Blog Only)
+        if is_blog and is_index:
             update_blog_index_grid(soup, all_posts)
 
         # Remove hardcoded "Related Reading" section if exists
@@ -439,11 +638,19 @@ def main():
     posts = extract_blog_metadata()
     
     # 3. Process Blog Files
-    process_blog_files(nav, footer, favicons, posts)
+    blog_files = glob.glob(os.path.join(BLOG_DIR, '*.html'))
+    process_pages(blog_files, nav, footer, favicons, posts, is_blog=True)
+
+    # 4. Process Legal & Help Files
+    other_files = glob.glob(os.path.join(LEGAL_DIR, '*.html')) + glob.glob(os.path.join(HELP_DIR, '*.html'))
+    process_pages(other_files, nav, footer, favicons, posts, is_blog=False)
     
-    # 4. Update Index Blog Section
+    # 5. Update Index Blog Section
     update_index_blog_section(index_soup, posts)
     write_file(INDEX_PATH, str(index_soup))
+    
+    # 6. Update Sitemap
+    update_sitemap(posts)
     
     print("Build complete.")
 

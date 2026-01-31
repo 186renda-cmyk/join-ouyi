@@ -1,48 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://join-ouyi.top/</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>1.00</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/blog/</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.90</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/blog/safety</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.80</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/blog/guide</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.80</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/blog/faq</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.80</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/help/</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.70</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/legal/privacy</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.50</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/legal/terms</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.50</priority>
-   </url>
-   <url>
-      <loc>https://join-ouyi.top/legal/risk</loc>
-      <lastmod>2026-01-16</lastmod>
-      <priority>0.50</priority>
-   </url>
+<url>
+<loc>https://join-ouyi.top/</loc>
+<lastmod>2026-01-16</lastmod>
+<priority>1.00</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/</loc>
+<lastmod>2026-01-16</lastmod>
+<priority>0.90</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/safety</loc>
+<lastmod>2026-01-31</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/guide</loc>
+<lastmod>2026-12-23</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/faq</loc>
+<lastmod>2026-12-23</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/blockchain-query</loc>
+<lastmod>2026-01-31</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/okx-vs-binance</loc>
+<lastmod>2026-01-31</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/help/</loc>
+<lastmod>2026-01-16</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/legal/privacy</loc>
+<lastmod>2026-01-16</lastmod>
+<priority>0.50</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/legal/terms</loc>
+<lastmod>2026-01-16</lastmod>
+<priority>0.50</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/legal/risk</loc>
+<lastmod>2026-01-16</lastmod>
+<priority>0.50</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/fee</loc>
+<lastmod>2026-01-31</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://join-ouyi.top/blog/index</loc>
+<lastmod>2024-01-01</lastmod>
+<priority>0.80</priority>
+</url>
 </urlset>

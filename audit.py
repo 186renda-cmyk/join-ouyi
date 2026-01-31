@@ -17,7 +17,7 @@ class Config:
         self.root_dir = root_dir
         self.base_url = None
         self.keywords = ""
-        self.ignore_paths = ['.git', 'node_modules', '__pycache__']
+        self.ignore_paths = ['.git', 'node_modules', '__pycache__', 'MasterTool']
         self.ignore_url_prefixes = ['/go/', 'javascript:', 'mailto:', '#']
         self.ignore_url_contains = ['cdn-cgi']
         self.ignore_files = ['404.html']
