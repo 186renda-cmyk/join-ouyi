@@ -64,6 +64,11 @@ def extract_blog_metadata():
         filename = os.path.basename(file_path)
         slug = filename.replace('.html', '')
         
+        if slug == 'index':
+            url = '/blog/'
+        else:
+            url = f"/blog/{slug}"
+        
         title = soup.title.string if soup.title else slug
         if title:
             # Clean title by removing suffix after |
@@ -78,6 +83,8 @@ def extract_blog_metadata():
         meta_desc = soup.find('meta', attrs={'name': 'description'})
         if meta_desc:
             desc = meta_desc['content']
+            # Clean description
+            desc = re.sub(r'\s*202[0-9]\s*', ' ', desc).strip()
             
         # Determine Category
         category = "Web3"
@@ -128,69 +135,155 @@ def extract_blog_metadata():
 
 def update_sitemap(posts):
     """Update sitemap.xml with all blog posts, updating timestamps if changed."""
-    if not os.path.exists(SITEMAP_PATH):
-        return
-
-    try:
-        # Read existing sitemap
-        with open(SITEMAP_PATH, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        soup = BeautifulSoup(content, 'xml')
-        urlset = soup.find('urlset')
-        
-        # Map existing URLs to their <url> tags
-        existing_entries = {}
-        for url_tag in urlset.find_all('url'):
-            loc = url_tag.find('loc')
-            if loc:
-                existing_entries[loc.text.strip()] = url_tag
-        
-        base_url = "https://join-ouyi.top"
-        updated_count = 0
-        added_count = 0
-        
-        for post in posts:
-            full_url = f"{base_url}{post['url']}"
-            new_date = post['date']
+    print("Updating sitemap...")
+    
+    soup = None
+    if os.path.exists(SITEMAP_PATH):
+        try:
+            with open(SITEMAP_PATH, 'r', encoding='utf-8') as f:
+                soup = BeautifulSoup(f.read(), 'xml')
+        except:
+            pass
             
-            if full_url in existing_entries:
-                # Check if date needs update
-                url_tag = existing_entries[full_url]
-                lastmod = url_tag.find('lastmod')
-                if lastmod and lastmod.text != new_date:
-                    lastmod.string = new_date
-                    updated_count += 1
-            else:
-                # Add new entry
-                new_url_tag = soup.new_tag('url')
-                
-                loc = soup.new_tag('loc')
-                loc.string = full_url
-                new_url_tag.append(loc)
-                
-                lastmod = soup.new_tag('lastmod')
+    if not soup or not soup.find('urlset'):
+        soup = BeautifulSoup('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>', 'xml')
+        
+    urlset = soup.find('urlset')
+    
+    # Map existing URLs to their <url> tags
+    existing_entries = {}
+    for url_tag in urlset.find_all('url'):
+        loc = url_tag.find('loc')
+        if loc:
+            existing_entries[loc.text.strip()] = url_tag
+    
+    base_url = "https://join-ouyi.top"
+    updated_count = 0
+    added_count = 0
+    
+    for post in posts:
+        full_url = f"{base_url}{post['url']}"
+        new_date = post['date']
+        
+        if full_url in existing_entries:
+            # Check if date needs update
+            url_tag = existing_entries[full_url]
+            lastmod = url_tag.find('lastmod')
+            if lastmod and lastmod.text != new_date:
                 lastmod.string = new_date
-                new_url_tag.append(lastmod)
-                
-                priority = soup.new_tag('priority')
-                priority.string = "0.80"
-                new_url_tag.append(priority)
-                
-                urlset.append(new_url_tag)
-                added_count += 1
-        
-        # Write back (using prettify might change format, so let's try to keep it simple or accept standard XML format)
-        # Using standard string conversion for BS4 XML
-        write_file(SITEMAP_PATH, str(soup))
-        
-        if added_count > 0 or updated_count > 0:
-            print(f"Sitemap updated: {added_count} added, {updated_count} timestamps updated.")
+                updated_count += 1
         else:
-            print("Sitemap is up to date.")
+            # Add new entry to soup (temporarily, for data collection)
+            new_url_tag = soup.new_tag('url')
             
-    except Exception as e:
-        print(f"Error updating sitemap: {e}")
+            loc = soup.new_tag('loc')
+            loc.string = full_url
+            new_url_tag.append(loc)
+            
+            lastmod = soup.new_tag('lastmod')
+            lastmod.string = new_date
+            new_url_tag.append(lastmod)
+            
+            priority = soup.new_tag('priority')
+            priority.string = "0.80"
+            new_url_tag.append(priority)
+            
+            urlset.append(new_url_tag)
+            # Update map to avoid adding duplicates if posts has duplicates
+            existing_entries[full_url] = new_url_tag
+            added_count += 1
+    
+    # Now rebuild the list cleanly to handle deduplication and sorting
+    url_data = []
+    seen_locs = set()
+    
+    # Collect all URLs from the updated soup
+    all_tags = urlset.find_all('url')
+    
+    # We want to process them in a way that favors the "best" version.
+    # But since we normalized locs, just iterating is fine.
+    
+    for u in all_tags:
+        loc_tag = u.find('loc')
+        if not loc_tag: continue
+        raw_loc = loc_tag.text.strip()
+        
+        # Normalize: /blog/index -> /blog/
+        final_loc = raw_loc
+        if final_loc.endswith('/blog/index'):
+            final_loc = final_loc.replace('/blog/index', '/blog/')
+            
+        if final_loc in seen_locs:
+            continue
+            
+        seen_locs.add(final_loc)
+        
+        lastmod = u.find('lastmod').text if u.find('lastmod') else TODAY
+        priority = u.find('priority').text if u.find('priority') else "0.80"
+        
+        # Override priority for Home and Blog Index
+        if final_loc == base_url + "/" or final_loc == base_url:
+             priority = "1.00"
+        elif final_loc == base_url + "/blog/" or final_loc == base_url + "/blog":
+             priority = "0.90"
+             
+        url_data.append({
+            'loc': final_loc,
+            'lastmod': lastmod,
+            'priority': priority
+        })
+        
+    # Custom Sort Function
+    def sitemap_sort_key(item):
+        loc = item['loc']
+        # Rank 3: Homepage
+        if loc == base_url + "/" or loc == base_url:
+            return (3, item['lastmod'])
+        # Rank 2: Blog Index
+        if loc == base_url + "/blog/" or loc == base_url + "/blog":
+            return (2, item['lastmod'])
+        # Rank 1: Others
+        return (1, item['lastmod'])
+
+    url_data.sort(key=sitemap_sort_key, reverse=True)
+    
+    if url_data:
+        print(f"Top URL after sort: {url_data[0]['loc']}")
+    
+    # Generate Custom XML String
+    xml_lines = ['<?xml version="1.0" encoding="utf-8"?>']
+    xml_lines.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    
+    for item in url_data:
+        loc = item['loc']
+        lastmod = item['lastmod']
+        priority = item['priority']
+        
+        # Determine changefreq
+        try:
+            p_val = float(priority)
+        except:
+            p_val = 0.5
+            
+        changefreq = "monthly"
+        if p_val >= 0.9:
+            changefreq = "daily"
+        elif p_val >= 0.8:
+            changefreq = "weekly"
+        
+        # Formatting: 2 spaces indent for child tags
+        xml_lines.append('<url>')
+        xml_lines.append(f'  <loc>{loc}</loc>')
+        xml_lines.append(f'  <lastmod>{lastmod}</lastmod>')
+        xml_lines.append(f'  <priority>{priority}</priority>')
+        xml_lines.append(f'  <changefreq>{changefreq}</changefreq>')
+        xml_lines.append('</url>')
+        
+    xml_lines.append('</urlset>')
+    
+    final_content = '\n'.join(xml_lines)
+    write_file(SITEMAP_PATH, final_content)
+    print("Sitemap file written.")
 
 def update_index_blog_section(soup, posts):
     """Update the blog section in index.html with latest posts."""
@@ -482,7 +575,7 @@ def update_blog_index_grid(soup, posts):
         const posts = Array.from(document.querySelectorAll('#posts-grid > li'));
         const buttons = document.querySelectorAll('#category-filter button');
         const paginationContainer = document.getElementById('pagination-controls');
-        const ITEMS_PER_PAGE = 9;
+        const ITEMS_PER_PAGE = 6;
         let currentPage = 1;
         let currentFilter = 'All';
         let visiblePosts = [];
@@ -750,6 +843,16 @@ def process_pages(files, nav_template, footer_template, favicons, all_posts, is_
         if '|' in title_text:
             title_text = title_text.split('|')[0]
         title_text = re.sub(r'\s*202[0-9]\s*', ' ', title_text).strip()
+
+        # Clean H1 tag content
+        h1_tag = soup.find('h1')
+        if h1_tag:
+            # Iterate over contents to preserve tags like <br>
+            for child in h1_tag.contents:
+                if isinstance(child, str) and not child.strip() == '':
+                    # Replace year in text nodes
+                    new_text = re.sub(r'\s*202[0-9]\s*', ' ', child)
+                    child.replace_with(new_text)
         
         meta_desc = head.find('meta', attrs={'name': 'description'})
         desc_content = meta_desc['content'] if meta_desc else ""
@@ -791,6 +894,8 @@ def process_pages(files, nav_template, footer_template, favicons, all_posts, is_
         
         # Group B: SEO Core
         if desc_content:
+            # Clean description
+            desc_content = re.sub(r'\s*202[0-9]\s*', ' ', desc_content).strip()
             head.append(soup.new_tag('meta', attrs={"name": "description", "content": desc_content}))
             head.append('\n')
         if kw_content:
@@ -1024,41 +1129,9 @@ def process_pages(files, nav_template, footer_template, favicons, all_posts, is_
                                  a['href'] = "/blog/"
 
         # 5. Force Update Date to TODAY (Blog Posts Only)
-        if is_blog and not is_index:
-            # Update Time Tag in Body
-            time_tag = soup.find('time')
-            if time_tag:
-                time_tag['datetime'] = TODAY
-                # Keep "发布于" prefix if consistent style
-                time_tag.string = f"发布于 {TODAY}"
-            
-            # Update Schema Date
-            for schema in head.find_all('script', type='application/ld+json'):
-                if not schema.string: continue
-                try:
-                    data = json.loads(schema.string)
-                    updated = False
-                    
-                    def update_date_recursive(d):
-                        u = False
-                        if isinstance(d, dict):
-                            if 'datePublished' in d:
-                                d['datePublished'] = TODAY
-                                u = True
-                            if 'dateModified' in d:
-                                d['dateModified'] = TODAY
-                                u = True
-                            # Also check graph
-                            if '@graph' in d and isinstance(d['@graph'], list):
-                                for item in d['@graph']:
-                                    if update_date_recursive(item): u = True
-                        return u
-
-                    if update_date_recursive(data):
-                        schema.string = json.dumps(data, ensure_ascii=False, indent=2)
-                except:
-                    pass
-
+        # REMOVED: Do not auto-update date to TODAY on every build.
+        # This preserves the original date in the file if set.
+        
         write_file(file_path, str(soup))
 
 def main():

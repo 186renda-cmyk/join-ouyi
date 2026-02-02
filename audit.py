@@ -288,9 +288,6 @@ class Auditor:
         for p in all_pages:
             if p == 'index.html' or self.is_ignored_file(p):
                 continue
-            # If path/index.html is linked, path/index.html is in graph keys.
-            # But sometimes links point to path.html.
-            # Our resolution logic puts the actual file path in the graph.
             if p not in linked_pages:
                 orphans.append(p)
         
@@ -298,14 +295,46 @@ class Auditor:
             for orphan in orphans:
                 self.add_issue('WARN', f"Orphan page found: {orphan} (No inbound links)", 5)
 
-        # Top Pages
-        # Calculate in-degree
-        in_degree = []
-        for p, sources in self.graph.items():
-            in_degree.append((p, len(sources)))
+        # PageRank Calculation
+        # 1. Build nodes and outbound map
+        nodes = set(all_pages) | set(linked_pages)
+        # Add sources from graph that might not be in pages (e.g. if scan missed them but they link out - unlikely but safe)
+        for sources in self.graph.values():
+            nodes.update(sources)
         
-        in_degree.sort(key=lambda x: x[1], reverse=True)
-        return in_degree[:10]
+        nodes = list(nodes)
+        outbound_map = defaultdict(list)
+        # self.graph is target <- [sources]
+        # we need source -> [targets]
+        for target, sources in self.graph.items():
+            for source in sources:
+                outbound_map[source].append(target)
+        
+        # 2. Iterative PR
+        # PR(A) = (1-d) + d * sum(PR(T)/C(T))
+        d = 0.85
+        iterations = 20
+        pr = {node: 1.0 for node in nodes}
+        
+        for _ in range(iterations):
+            new_pr = {}
+            for node in nodes:
+                incoming_sum = 0
+                # Find nodes that link TO 'node'
+                # self.graph[node] gives list of sources
+                if node in self.graph:
+                    for source in self.graph[node]:
+                        # C(source) is len(outbound_map[source])
+                        c_source = len(outbound_map[source])
+                        if c_source > 0:
+                            incoming_sum += pr[source] / c_source
+                
+                new_pr[node] = (1 - d) + d * incoming_sum
+            pr = new_pr
+
+        # Sort by PR
+        pr_list = sorted(pr.items(), key=lambda x: x[1], reverse=True)
+        return pr_list[:10]
 
     def run(self):
         if not self.config.base_url:
@@ -334,9 +363,9 @@ class Auditor:
                 print(f"{Fore.BLUE}[INFO] {issue['message']}")
 
         print("-" * 30)
-        print(f"{Fore.BLUE}Top 10 Pages by Inbound Links:")
-        for p, count in top_pages:
-            print(f"  {count} <- {p}")
+        print(f"{Fore.BLUE}Top 10 Pages by Link Equity (PageRank):")
+        for p, score in top_pages:
+            print(f"  {score:.4f} <- {p}")
             
         print("-" * 30)
         print(f"Final Score: ", end="")
