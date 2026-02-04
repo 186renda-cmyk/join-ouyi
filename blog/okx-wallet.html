@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OKX Wallet 是什么？ 新手指南：下载、注册与 Chrome 插件使用</title>
+<meta content="全面解析 OKX Wallet (欧易 Web3 钱包)。从非托管安全机制、多链支持到 OKX Wallet Extension 插件下载与注册教程，助您一站式管理 Web3 资产。" name="description"/>
+<meta content="okx wallet, okx wallet extension, okx wallet是什么, okx wallet 注册, okx wallet 下载, okx wallet 官网, web3 钱包" name="keywords"/>
+<link href="https://join-ouyi.top/blog/okx-wallet" rel="canonical"/>
+<meta content="index, follow" name="robots"/>
+<meta content="zh-CN" http-equiv="content-language"/>
+<meta content="global" name="distribution"/>
+<link href="https://join-ouyi.top/blog/okx-wallet" hreflang="zh-CN" rel="alternate"/>
+<link href="https://join-ouyi.top/blog/okx-wallet" hreflang="zh" rel="alternate"/>
+<link href="https://join-ouyi.top/blog/okx-wallet" hreflang="x-default" rel="alternate"/>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { page:'#050505', card:'#121212', border:'#27272a', primary:'#2955FF','primary-hover':'#1d4ed8', txt:{main:'#ffffff',muted:'#a1a1aa'} },
+                    fontFamily: { sans:['ui-sans-serif','system-ui','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','sans-serif'] },
+                    backgroundImage: { 'hero-glow':'radial-gradient(circle at 50% -20%, rgba(41,85,255,.2) 0%, rgba(5,5,5,0) 60%)','btn-gradient':'linear-gradient(to right,#2955FF,#3b82f6)' },
+                    boxShadow: { 'glow':'0 0 20px rgba(41,85,255,.3)' },
+                    animation: { 'fade-in':'fadeIn .6s ease-out forwards','float':'float 6s ease-in-out infinite' },
+                    keyframes: { fadeIn:{'0%':{opacity:'0',transform:'translateY(10px)'},'100%':{opacity:'1',transform:'translateY(0)'}}, float:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-20px)'}} }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-nav{background:rgba(5,5,5,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+        .nav-border{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)}
+        details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+        .fade-up{animation:fadeUp .8s ease-out forwards;opacity:0;transform:translateY(20px)}
+        @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+    </style>
+
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "inLanguage": "zh-CN",
+  "headline": "OKX Wallet 是什么？2025 新手指南",
+  "description": "全面解析 OKX Wallet，涵盖下载、注册与 Chrome 插件使用教程。",
+  "author": {
+    "@type": "Organization",
+    "name": "Join Ouyi"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Join Ouyi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://join-ouyi.top/blog/okx-wallet"
+  },
+  "datePublished": "2026-02-04",
+  "dateModified": "2026-02-04"
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://join-ouyi.top/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Web3 知识库",
+      "item": "https://join-ouyi.top/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "OKX Wallet 是什么？ 新手指南：下载、注册与 Chrome 插件使用",
+      "item": "https://join-ouyi.top/blog/okx-wallet"
+    }
+  ]
+}</script>
+</head>
+<body class="bg-page text-txt-main font-sans antialiased selection:bg-primary selection:text-white">
+<nav aria-label="全局导航" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/[0.08] bg-[#050505]/80 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#050505]/60">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<a class="group flex items-center gap-3 cursor-pointer select-none" href="/">
+<div class="relative flex items-center justify-center w-10 h-10 bg-white text-black rounded-xl font-black text-xl tracking-tighter shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:shadow-[0_0_30px_rgba(41,85,255,0.5)] group-hover:scale-105 transition-all duration-500 ease-out">
+                    OKX
+                </div>
+<div class="w-[1px] h-6 bg-white/10 group-hover:bg-white/30 transition-colors"></div>
+<div class="flex flex-col justify-center">
+<span class="text-sm font-bold text-white tracking-wide leading-none group-hover:text-primary transition-colors">
+                        Join Ouyi
+                    </span>
+<span class="text-[10px] text-txt-muted uppercase tracking-[0.1em] scale-90 origin-left mt-1 opacity-80">Official Partner</span>
+</div>
+</a>
+<div class="hidden lg:flex items-center p-1.5 bg-white/[0.03] border border-white/[0.08] rounded-full backdrop-blur-md shadow-2xl">
+<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="/#features"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">💎</span> 平台优势</a>
+<div class="w-[1px] h-3 bg-white/10"></div>
+<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="/#register-guide"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">📖</span> 注册教程</a>
+<div class="w-[1px] h-3 bg-white/10"></div>
+<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="/#ios-guide"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">🍎</span> iOS 教程</a>
+<div class="w-[1px] h-3 bg-white/10"></div>
+<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="/#deposit-tutorial"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">💰</span> 入金教学</a>
+<div class="w-[1px] h-3 bg-white/10"></div>
+<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="/#faq"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">❓</span> 常见问题</a>
+<div class="w-[1px] h-3 bg-white/10"></div>
+<a class="px-5 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center gap-1.5 group" href="/blog/"><span class="group-hover:-translate-y-0.5 transition-transform duration-300">🌐</span> Web3 百科</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="relative group" href="/#hero">
+<div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur opacity-30 group-hover:opacity-75 transition duration-500"></div>
+<div class="relative flex items-center gap-2 bg-[#0A0A0A] text-white px-6 py-2.5 rounded-full border border-white/10 overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+<span class="text-sm font-bold relative z-10 group-hover:text-blue-400 transition-colors">立即加入</span>
+<svg aria-hidden="true" class="w-3 h-3 text-white relative z-10 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</a>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+<article class="lg:col-span-8">
+<nav aria-label="面包屑导航" class="mb-8">
+<ol class="flex flex-wrap items-center gap-2 text-sm text-txt-muted" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+<li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+<a class="hover:text-primary transition-colors" href="/" itemprop="item">
+<span itemprop="name">首页</span>
+</a>
+<meta content="1" itemprop="position"/>
+</li>
+<li aria-hidden="true" class="text-txt-muted/50">/</li>
+<li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+<a class="hover:text-primary transition-colors" href="/blog/" itemprop="item">
+<span itemprop="name">Web3 知识库</span>
+</a>
+<meta content="2" itemprop="position"/>
+</li>
+<li aria-hidden="true" class="text-txt-muted/50">/</li>
+<li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+<span aria-current="page" class="text-white" itemprop="name">OKX Wallet 指南</span>
+<meta content="3" itemprop="position"/>
+</li>
+</ol>
+</nav>
+<header class="mb-10">
+<div class="flex items-center gap-2 text-sm text-purple-400 font-bold tracking-widest uppercase mb-4">
+<span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                Web3 Wallet
+            </div>
+<h1 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
+                OKX Wallet 是什么？<br/>新手指南：下载、注册与 Chrome 插件使用
+            </h1>
+<div class="flex items-center gap-3 text-xs text-txt-muted">
+<time class="px-2 py-1 rounded bg-white/5 border border-white/10" datetime="2026-02-04">发布于 2026-02-04</time>
+<span class="px-2 py-1 rounded bg-white/5 border border-white/10">作者 Join Ouyi</span>
+</div>
+</header>
+<div class="prose prose-invert max-w-none text-txt-muted">
+<p class="text-lg leading-relaxed mb-8">
+                随着 Web3 生态的爆发，拥有一个安全、好用的去中心化钱包至关重要。<strong>OKX Wallet</strong> 正是为此而生，它不仅支持超过 80 条公链，还集成了 DEX 聚合器、NFT 市场和 DApp 浏览器。无论你是想下载 <strong>OKX Wallet Extension</strong> 插件，还是想了解如何在手机 App 上创建钱包，本文都将为你提供最详细的图文教程。
+            </p>
+<div class="relative pl-8 border-l border-white/10 pb-12 last:pb-0">
+<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 ring-4 ring-page text-xs font-bold text-white">1</span>
+<h2 class="text-xl font-bold text-white mb-4">OKX Wallet 是什么？核心优势解析</h2>
+<p class="text-sm text-txt-muted mb-4">
+                    OKX Wallet 是由 OKX 交易所推出的<strong>去中心化、非托管钱包</strong>。这意味着你拥有私钥的完全控制权，平台无法动用你的资产。
+                </p>
+<div class="grid md:grid-cols-2 gap-4">
+<div class="bg-card border border-white/10 p-5 rounded-xl">
+<h3 class="text-white font-bold mb-2 flex items-center gap-2">
+<svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            多链一站式管理
+                        </h3>
+<p class="text-xs text-txt-muted">
+                            支持比特币 (BTC)、以太坊 (ETH)、Solana (SOL)、BNB Chain 等 80+ 条主流公链。无需切换钱包，一个账户管理所有 Web3 资产。
+                        </p>
+</div>
+<div class="bg-card border border-white/10 p-5 rounded-xl">
+<h3 class="text-white font-bold mb-2 flex items-center gap-2">
+<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            智能 DEX 聚合
+                        </h3>
+<p class="text-xs text-txt-muted">
+                            内置 DEX 聚合器，整合 400+ 去中心化交易所流动性，自动匹配最优路径，支持跨链兑换（如 USDT 从 ETH 链转到 SOL 链）。
+                        </p>
+</div>
+<div class="bg-card border border-white/10 p-5 rounded-xl">
+<h3 class="text-white font-bold mb-2 flex items-center gap-2">
+<svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            安全黑科技
+                        </h3>
+<p class="text-xs text-txt-muted">
+                            采用 MPC 技术简化私钥管理，内置风险检测系统，实时拦截诈骗合约和恶意地址，为你的链上交互保驾护航。
+                        </p>
+</div>
+<div class="bg-card border border-white/10 p-5 rounded-xl">
+<h3 class="text-white font-bold mb-2 flex items-center gap-2">
+<svg class="w-4 h-4 text-yellow-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            交易所无缝互转
+                        </h3>
+<p class="text-xs text-txt-muted">
+                            与 OKX 交易所深度集成，资金在 CEX（中心化账户）和 Web3 钱包间可一键划转，方便快捷。
+                        </p>
+</div>
+</div>
+</div>
+<div class="relative pl-8 border-l border-white/10 pb-12 last:pb-0">
+<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-green-500 ring-4 ring-page text-xs font-bold text-white">2</span>
+<h2 class="text-xl font-bold text-white mb-4">OKX Wallet Extension (浏览器插件) 使用指南</h2>
+<p class="text-sm text-txt-muted mb-4">
+                    对于习惯在电脑端操作 DeFi 或 NFT 的用户，<strong>OKX Wallet Extension</strong> 是最佳选择。它是一个浏览器扩展程序，功能强大且轻便。
+                </p>
+<div class="bg-white/5 p-6 rounded-xl space-y-4">
+<ol class="list-decimal list-inside space-y-3 text-sm">
+<li><strong>访问官网下载</strong>：前往 <a class="text-primary hover:text-white underline" href="https://www.okx.com/web3" rel="nofollow noopener" target="_blank">OKX Wallet 官网</a>，根据你的浏览器（Chrome, Edge, Firefox 等）点击下载插件。</li>
+<li><strong>安装插件</strong>：跳转至 Chrome 应用商店后，点击“添加至 Chrome”完成安装。</li>
+<li><strong>创建或导入</strong>：点击浏览器右上角的插件图标。如果你是新用户，选择“创建新钱包”；如果已有钱包，可选择“导入钱包”并输入助记词。</li>
+<li><strong>开始交互</strong>：设置密码后即可使用。你可以连接 Uniswap, OpenSea 等 DApp，插件会自动弹出签名请求。</li>
+</ol>
+</div>
+</div>
+<div class="relative pl-8 border-l border-white/10 pb-12 last:pb-0">
+<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-purple-500 ring-4 ring-page text-xs font-bold text-white">3</span>
+<h2 class="text-xl font-bold text-white mb-4">手机 App 端注册教程</h2>
+<p class="text-sm text-txt-muted mb-4">
+                    手机端操作更加灵活，适合随时随地管理资产。
+                </p>
+<div class="space-y-4">
+<div class="flex gap-4 items-start">
+<div class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">1</div>
+<div>
+<strong class="text-white block mb-1">下载 OKX App</strong>
+<span class="text-sm text-txt-muted">在应用商店搜索“OKX”下载。如果尚未注册交易所账户，可参考<a class="text-primary hover:text-white underline" href="/blog/guide">《新手注册教程》</a>领取盲盒福利。</span>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">2</div>
+<div>
+<strong class="text-white block mb-1">切换至 Web3 模式</strong>
+<span class="text-sm text-txt-muted">打开 App，点击顶部导航栏的“Web3”开关，切换到钱包模式。</span>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">3</div>
+<div>
+<strong class="text-white block mb-1">创建钱包与备份</strong>
+<span class="text-sm text-txt-muted">点击“我没有钱包” -&gt; “无私钥钱包”或“助记词钱包”。<strong>关键步骤：</strong>系统会生成 12 个单词的助记词，请务必抄写在纸上并妥善保管！</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-card border border-dashed border-red-500/30 p-6 rounded-xl mt-8">
+<h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    安全警示：助记词就是资产！
+                </h3>
+<ul class="list-disc list-inside text-sm space-y-2 text-txt-muted">
+<li><strong class="text-white">切勿截图：</strong>不要将助记词截图保存在相册，防止被 App 读取或云同步泄露。</li>
+<li><strong class="text-white">切勿通过网络传输：</strong>不要通过微信、Telegram 或邮件发送助记词。</li>
+<li><strong class="text-white">谨防假冒客服：</strong>OKX 官方人员永远不会向你索要助记词或私钥。</li>
+<li><strong class="text-white">生物识别：</strong>建议开启指纹或面容 ID 支付，增加一道防线。</li>
+</ul>
+</div>
+</div>
+<div class="recommendations-injected mt-12 pt-8 border-t border-white/10"><h3 class="text-xl font-bold text-white mb-6">推荐阅读</h3><div class="grid md:grid-cols-2 gap-4"><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/okx-boost"><h4 class="text-white font-bold mb-2">OKX Boost 怎么刷？ 最新规则与低成本刷分教程</h4><p class="text-xs text-txt-muted line-clamp-2">OKX Boost 刷分保姆级教程。全面解析 最新积分规则、交易量加成策略及防刷量机制，助您低成本获取空投奖励与项目白名单。</p></a><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/okx-btc"><h4 class="text-white font-bold mb-2">OKX BTC 交易指南：现货、合约与比特币生态全解析</h4><p class="text-xs text-txt-muted line-clamp-2">全面解析 OKX 平台的比特币 (BTC) 交易功能。从高杠杆合约、现货买卖到 xBTC 跨链与 BRC-20 铭文生态，助您掌握 BTC 投资策略。</p></a><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/how-to-deposit-on-okx"><h4 class="text-white font-bold mb-2">欧易充值教程： 最新欧易怎么充值/入金全攻略 (含USDT/法币)</h4><p class="text-xs text-txt-muted line-clamp-2">欧易怎么充值？本文为您提供最详细的欧易OKX充值教程，包括加密货币链上充值（USDT）和法币快捷买币（支付宝/微信）两种方式，助您快速完成欧易入金。</p></a><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/is-okx-legal"><h4 class="text-white font-bold mb-2">欧易合法吗？ 最新深度解析：中国法律风险与合规性</h4><p class="text-xs text-txt-muted line-clamp-2">欧易OKX在中国合法吗？本文深度解析 年最新监管政策，从持有、交易、出金冻卡风险等维度，为您解答虚拟货币交易的法律边界与风险防范。</p></a></div></div></article>
+<aside class="lg:col-span-4 space-y-8"><div class="sticky top-24 space-y-6"><div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a1a1a] to-black border border-white/10 group hover:border-primary/50 transition-all duration-500 shadow-2xl"><div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-[50px] group-hover:bg-primary/30 transition-all duration-500"></div><div class="p-6 relative z-10 text-center"><div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-4">限时福利</div><h3 class="text-2xl font-black text-white mb-2">注册 OKX</h3><p class="text-sm text-txt-muted mb-6">领取最高 100 USDT 数字货币盲盒</p><a class="block w-full py-3.5 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300" href="/#hero">立即领取</a></div></div><div class="bg-card/50 backdrop-blur-sm border border-white/5 rounded-3xl p-6"><h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4 opacity-80">最新文章 (Latest)</h4><ul class="space-y-4"><li><a class="group flex gap-3 items-start" href="/blog/okx-boost"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX Boost 怎么刷？ 最新规则与低成本刷分教程</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-btc"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX BTC 交易指南：现货、合约与比特币生态全解析</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/how-to-deposit-on-okx"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">欧易充值教程： 最新欧易怎么充值/入金全攻略 (含USDT/法币)</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/is-okx-legal"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">欧易合法吗？ 最新深度解析：中国法律风险与合规性</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-app-download"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX下载指南： 最新欧易APP下载(iOS/安卓)与安装教程</h5></div></a></li></ul></div></div></aside>
+</main>
+<footer class="pt-16 pb-8 px-6 border-t border-white/5 bg-page relative overflow-hidden">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto relative z-10">
+<div class="grid md:grid-cols-4 gap-12 mb-12">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-8 h-8 bg-white text-black rounded font-black flex items-center justify-center text-sm">OKX</div>
+<span class="text-xl font-bold text-white">Join Ouyi</span>
+</div>
+<p class="text-txt-muted text-sm leading-relaxed max-w-sm mb-6">
+                        通过 Join-Ouyi.top 官方合作伙伴通道注册，享受银行级安全保障与专属新手福利。开启您的 Web3 数字资产之旅。
+                    </p>
+<div class="flex gap-4">
+<div class="px-3 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-txt-muted flex items-center gap-1">
+<svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            SSL Secure
+                        </div>
+<div class="px-3 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-txt-muted flex items-center gap-1">
+<svg class="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            24/7 Support
+                        </div>
+</div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">快速导航</h4>
+<ul class="space-y-3 text-sm text-txt-muted">
+<li><a class="hover:text-primary transition-colors" href="/#register-guide">注册教程 (Guide)</a></li>
+<li><a class="hover:text-primary transition-colors" href="/#ios-guide">iOS 下载 (iOS Guide)</a></li>
+<li><a class="hover:text-primary transition-colors" href="/#deposit-tutorial">入金充值 (Deposit)</a></li>
+<li><a class="hover:text-primary transition-colors" href="/#hero">APP 下载 (Download)</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">合规与支持</h4>
+<ul class="space-y-3 text-sm text-txt-muted">
+<li><a class="hover:text-white transition-colors" href="/legal/privacy">隐私政策</a></li>
+<li><a class="hover:text-white transition-colors" href="/legal/terms">服务条款</a></li>
+<li><a class="hover:text-white transition-colors" href="/legal/risk">风险披露</a></li>
+<li><a class="hover:text-white transition-colors" href="/help/">帮助中心</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-txt-muted">
+                    © 2024 Join-Ouyi.top (Affiliate Portal). All rights reserved.
+                </p>
+<p class="text-[10px] text-txt-muted/50 max-w-lg text-center md:text-right">
+                    风险提示：数字资产交易具有极高的市场风险和价格波动性。本页面仅作为 OKX 官方合作伙伴推广展示，不构成任何投资建议。请您在投资前确保充分了解相关风险，并根据自身承受能力理性投资。
+                </p>
+</div>
+</div>
+</footer>
+</body>
+</html>
