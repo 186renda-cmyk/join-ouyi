@@ -3,16 +3,16 @@
 <html lang="zh-CN">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>如何进行 OKX 区块链查询？新手必看的链上数据追踪指南</title>
-<meta content="想要查询区块链交易记录？本文为您详细介绍如何在 OKX App 内查询以及使用专业区块链浏览器（如 Etherscan, OKLink）进行链上数据追踪，助您轻松掌握数字资产动态。" name="description"/>
-<meta content="OKX区块链查询, 链上交易查询, 区块链浏览器, 交易哈希查询, Etherscan, OKLink" name="keywords"/>
-<link href="https://join-ouyi.top/blog/blockchain-query" rel="canonical"/>
+<title>OKX API 开发者指南：V5 接口文档、Python 示例与量化交易教程</title>
+<meta content="全面解析 OKX V5 API。从申请 API Key 到 Python 自动化交易实战，提供 REST API 与 WebSocket 接口详解，助您构建专业量化系统。" name="description"/>
+<meta content="okx api, okx api文档, okx v5 api, 欧易api, okx api 教程, okx模拟交易api, 量化交易python" name="keywords"/>
+<link href="https://join-ouyi.top/blog/okx-api" rel="canonical"/>
 <meta content="index, follow" name="robots"/>
 <meta content="zh-CN" http-equiv="content-language"/>
 <meta content="global" name="distribution"/>
-<link href="https://join-ouyi.top/blog/blockchain-query" hreflang="zh-CN" rel="alternate"/>
-<link href="https://join-ouyi.top/blog/blockchain-query" hreflang="zh" rel="alternate"/>
-<link href="https://join-ouyi.top/blog/blockchain-query" hreflang="x-default" rel="alternate"/>
+<link href="https://join-ouyi.top/blog/okx-api" hreflang="zh-CN" rel="alternate"/>
+<link href="https://join-ouyi.top/blog/okx-api" hreflang="zh" rel="alternate"/>
+<link href="https://join-ouyi.top/blog/okx-api" hreflang="x-default" rel="alternate"/>
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -43,8 +43,8 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "inLanguage": "zh-CN",
-  "headline": "如何进行 OKX 区块链查询？新手必看的链上数据追踪指南",
-  "description": "本文为您详细介绍如何在 OKX App 内查询以及使用专业区块链浏览器进行链上数据追踪。",
+  "headline": "OKX API 开发者指南：V5 接口文档与量化交易教程",
+  "description": "全面解析 OKX V5 API，涵盖 REST API、WebSocket 及 Python 实战示例。",
   "author": {
     "@type": "Organization",
     "name": "Join Ouyi"
@@ -55,10 +55,10 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://join-ouyi.top/blog/blockchain-query"
+    "@id": "https://join-ouyi.top/blog/okx-api"
   },
-  "datePublished": "2025-10-05",
-  "dateModified": "2025-10-05"
+  "datePublished": "2026-02-04",
+  "dateModified": "2026-02-04"
 }</script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -79,8 +79,8 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "如何进行 OKX 区块链查询？新手必看的链上数据追踪指南",
-      "item": "https://join-ouyi.top/blog/blockchain-query"
+      "name": "OKX API 开发者指南：V5 接口文档、Python 示例与量化交易教程",
+      "item": "https://join-ouyi.top/blog/okx-api"
     }
   ]
 }</script>
@@ -144,7 +144,7 @@
 </li>
 <li aria-hidden="true" class="text-txt-muted/50">/</li>
 <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-<span aria-current="page" class="text-white" itemprop="name">OKX 区块链查询指南</span>
+<span aria-current="page" class="text-white" itemprop="name">OKX API 开发指南</span>
 <meta content="3" itemprop="position"/>
 </li>
 </ol>
@@ -152,92 +152,122 @@
 <header class="mb-10">
 <div class="flex items-center gap-2 text-sm text-purple-400 font-bold tracking-widest uppercase mb-4">
 <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                On-Chain Data
+                API Documentation
             </div>
 <h1 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
-                如何进行 OKX 区块链查询？<br/>新手必看的链上数据追踪指南
+                OKX API 开发者指南：<br/>V5 接口文档与 Python 量化实战
             </h1>
 <div class="flex items-center gap-3 text-xs text-txt-muted">
-<time class="px-2 py-1 rounded bg-white/5 border border-white/10" datetime="2025-10-05">发布于 2025-10-05</time>
+<time class="px-2 py-1 rounded bg-white/5 border border-white/10" datetime="2026-02-04">发布于 2026-02-04</time>
 <span class="px-2 py-1 rounded bg-white/5 border border-white/10">作者 Join Ouyi</span>
 </div>
 </header>
 <div class="prose prose-invert max-w-none text-txt-muted">
 <p class="text-lg leading-relaxed mb-8">
-                想查询区块链上的交易记录，掌握自己数字资产的动态，其实很简单。主要分两种方式，一种是直接在 <strong>OKX App</strong> 里查，另一种是用专业的<strong>区块链浏览器</strong>。无论你是只想确认到账情况，还是需要进行深度的链上分析，本文都将为你提供详细的操作指南。
+<strong>OKX API</strong> 是连接开发者与欧易交易所的桥梁，支持现货、期货、期权等全品类交易。无论您是想构建自动化交易机器人，还是开发行情分析工具，OKX V5 API 都能提供强大、稳定的技术支持。本文将带您快速入门，从申请 API Key 到编写第一个 Python 交易脚本。
             </p>
 <div class="relative pl-8 border-l border-white/10 pb-12 last:pb-0">
-<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-purple-500 ring-4 ring-page text-xs font-bold text-white">1</span>
-<h2 class="text-xl font-bold text-white mb-4">在 OKX App 内查询</h2>
-<p class="text-sm text-txt-muted mb-4">这是最方便快捷的方式，特别适合只想确认自己交易状态的普通用户。</p>
-<div class="bg-card border border-white/10 p-6 rounded-xl mb-4 space-y-4">
-<div>
-<h3 class="text-white font-bold mb-2">操作路径</h3>
-<p class="text-sm">打开 OKX App（<a class="text-primary hover:text-white underline" href="/blog/guide">点击此处查看注册下载教程</a>），进入<strong>“资产”</strong>页面，选择你想要查询的币种（如 USDT），点击<strong>“交易记录”</strong>。</p>
+<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 ring-4 ring-page text-xs font-bold text-white">1</span>
+<h2 class="text-xl font-bold text-white mb-4">核心功能与接口类型</h2>
+<div class="grid md:grid-cols-2 gap-4 mb-6">
+<div class="bg-card border border-white/10 p-5 rounded-xl">
+<h3 class="text-white font-bold mb-2">REST API</h3>
+<p class="text-sm text-txt-muted">
+                            基于 HTTP 协议，适用于低频交互。
+                            <br/><strong>适用场景：</strong> 获取历史 K 线、查询账户余额、下达买卖订单、撤单等。
+                        </p>
 </div>
-<div>
-<h3 class="text-white font-bold mb-2">能查到什么</h3>
-<p class="text-sm">你可以看到所有与该币种相关的链上交易，包括充值、提现、转账等。点击具体一笔交易，就能看到它的<strong>交易哈希（TX ID）</strong>、交易时间、手续费、转账地址以及当前状态（比如“成功”、“失败”或“确认中”）。</p>
-</div>
-<div class="flex items-center gap-2 text-green-400 text-sm">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span>优点：数据直接关联 OKX 账户，操作简单，无需切换工具。</span>
+<div class="bg-card border border-white/10 p-5 rounded-xl">
+<h3 class="text-white font-bold mb-2">WebSocket API</h3>
+<p class="text-sm text-txt-muted">
+                            基于 TCP 的双向通信，毫秒级延迟。
+                            <br/><strong>适用场景：</strong> 实时推送最新成交、订单簿（Depth）变化、账户权益变动通知。
+                        </p>
 </div>
 </div>
 </div>
 <div class="relative pl-8 border-l border-white/10 pb-12 last:pb-0">
-<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-gray-700 ring-4 ring-page text-xs font-bold text-white">2</span>
-<h2 class="text-xl font-bold text-white mb-4">使用区块链浏览器查询</h2>
-<p class="text-sm text-txt-muted mb-4">如果你是开发者，或者想进行更深入的链上数据分析，比如追踪某个钱包地址的全部历史、查看智能合约代码等，那就需要用区块链浏览器了。</p>
-<div class="grid md:grid-cols-2 gap-4 mb-6">
-<div class="bg-white/5 p-4 rounded-xl">
-<h3 class="text-white font-bold mb-2">通用浏览器</h3>
-<ul class="text-sm space-y-2 list-disc list-inside">
-<li><strong>以太坊 (ETH)</strong>：使用 Etherscan</li>
-<li><strong>比特币 (BTC)</strong>：使用 Blockchain.com</li>
-<li><strong>Solana (SOL)</strong>：使用 Solscan</li>
+<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-green-500 ring-4 ring-page text-xs font-bold text-white">2</span>
+<h2 class="text-xl font-bold text-white mb-4">快速开始：申请 API Key</h2>
+<ol class="list-decimal list-inside space-y-3 text-sm mb-6">
+<li>登录 <a class="text-primary hover:text-white underline" href="/blog/guide">OKX 官网</a>（需完成 KYC 认证）。</li>
+<li>点击右上角头像 -&gt; <strong>API</strong> -&gt; <strong>申请 V5 API</strong>。</li>
+<li>设置备注名和<strong>密码 (Passphrase)</strong>，绑定 IP 地址（强烈建议，以增强安全性）。</li>
+<li>根据需求勾选权限：
+                        <ul class="list-disc list-inside pl-5 mt-1 text-txt-muted">
+<li><strong>读取：</strong> 仅查询数据（最安全）。</li>
+<li><strong>交易：</strong> 允许下单和撤单。</li>
+<li><strong>提币：</strong> 允许资金转出（非必要严禁勾选）。</li>
 </ul>
+</li>
+</ol>
 </div>
-<div class="bg-white/5 p-4 rounded-xl">
-<h3 class="text-white font-bold mb-2">多链聚合浏览器</h3>
-<p class="text-sm mb-2">如果你想一次查询多条链，可以试试 <strong>OKLink</strong> 或 <strong>Tokenview</strong>，它们支持 60 多种公链，非常方便。</p>
+<div class="relative pl-8 border-l border-white/10 pb-12 last:pb-0">
+<span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-purple-500 ring-4 ring-page text-xs font-bold text-white">3</span>
+<h2 class="text-xl font-bold text-white mb-4">Python 实战：获取 BTC 实时行情</h2>
+<p class="text-sm text-txt-muted mb-4">
+                    以下是一个简单的 Python 脚本示例，演示如何使用 REST API 获取 BTC/USDT 的最新市场深度。
+                </p>
+<div class="bg-[#1e1e1e] p-4 rounded-xl border border-white/10 overflow-x-auto">
+<pre><code class="language-python text-sm text-gray-300">import requests
+import json
+
+# 设置 API 端点 (国内用户可能需要代理或使用 AWS 节点)
+url = 'https://www.okx.com/api/v5/market/depth'
+
+# 设置参数：交易对为 BTC-USDT，获取 5 档深度
+params = {
+    'instId': 'BTC-USDT',
+    'sz': '5'
+}
+
+try:
+    response = requests.get(url, params=params)
+    data = response.json()
+    
+    if data['code'] == '0':
+        print("当前 BTC/USDT 卖一价:", data['data'][0]['asks'][0][0])
+        print("当前 BTC/USDT 买一价:", data['data'][0]['bids'][0][0])
+    else:
+        print("请求失败:", data['msg'])
+        
+except Exception as e:
+    print("发生错误:", e)
+</code></pre>
 </div>
 </div>
-<div class="bg-card border border-dashed border-purple-500/30 p-6 rounded-xl">
-<h3 class="text-white font-bold mb-3">查询方法</h3>
-<p class="text-sm">在浏览器的搜索框里，输入你想查询的<strong>“钱包地址”</strong>、<strong>“交易哈希（TX ID）”</strong>或<strong>“区块高度”</strong>，就能看到详细的链上数据了。</p>
-</div>
-</div>
-<div class="relative pl-8 border-l border-white/10 pb-0">
+<div class="relative pl-8 border-l border-white/10 pb-12 last:pb-0">
 <span class="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 ring-4 ring-page text-xs font-bold text-white">!</span>
-<h2 class="text-xl font-bold text-white mb-4">特别提醒 &amp; 安全须知</h2>
-<ul class="space-y-4">
-<li class="flex items-start gap-3">
-<svg class="w-5 h-5 text-yellow-500 mt-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<div>
-<strong class="text-white block mb-1">注意数据准确性</strong>
-<span class="text-sm">区块链数据是公开透明的，但不同浏览器的数据更新速度和展示方式可能略有差异。如果发现数据不一致，可以多换几个浏览器交叉验证。</span>
-</div>
+<h2 class="text-xl font-bold text-white mb-4">开发注意事项与风控</h2>
+<div class="bg-card border border-dashed border-red-500/30 p-6 rounded-xl">
+<ul class="space-y-3 text-sm">
+<li class="flex gap-2">
+<span class="text-red-500">🔒</span>
+<span><strong>私钥安全：</strong> API Key 和 Secret Key 等同于你的银行密码，切勿上传到 GitHub 或发送给他人。</span>
 </li>
-<li class="flex items-start gap-3">
-<svg class="w-5 h-5 text-yellow-500 mt-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11.536 19.464A4.242 4.242 0 018.707 20.707H8.05a1 1 0 00-.973.757l-.358 1.431A1 1 0 015.744 23H4.829a1 1 0 01-.99-1.121L4.536 17H4a1 1 0 01-1-1v-2.172a2 2 0 01.586-1.414l5-5c1.26-1.26 3.687-1.877 5.864-1.425A6 6 0 1115 7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<div>
-<strong class="text-white block mb-1">保存交易哈希 (TX ID)</strong>
-<span class="text-sm">在进行外部转账时，务必记下或截图保存交易哈希。这是你查询该笔交易的唯一凭证，也是向客服求助时的关键信息。</span>
-</div>
+<li class="flex gap-2">
+<span class="text-red-500">🚦</span>
+<span><strong>频率限制：</strong> REST API 普通用户通常限制为 20 次/2秒。请做好错误重试机制，避免 IP 被封禁。</span>
 </li>
-<li class="flex items-start gap-3">
-<svg class="w-5 h-5 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<div>
-<strong class="text-white block mb-1">警惕钓鱼链接</strong>
-<span class="text-sm">不要随意点击来源不明的链接，尤其是在查询交易时。确保你访问的是官方或信誉良好的区块链浏览器网站。有关资金安全的更多信息，请参考<a class="text-primary hover:text-white underline" href="/blog/safety">OKX 资金安全深度评测</a>。</span>
-</div>
+<li class="flex gap-2">
+<span class="text-red-500">🧪</span>
+<span><strong>模拟盘测试：</strong> 在实盘跑策略前，强烈建议先使用 OKX 提供的<strong>模拟盘 API</strong> 进行回测，以免因代码 Bug 造成资金损失。</span>
 </li>
 </ul>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-white/10">
+<h3 class="text-xl font-bold text-white mb-4">总结</h3>
+<p class="text-sm text-txt-muted mb-4">
+                    通过 OKX API，你可以将交易策略自动化，实现 7x24 小时无人值守获利。对于初学者，建议从简单的“定投脚本”或“网格策略”开始尝试。
+                </p>
+<a class="inline-flex items-center gap-2 text-primary hover:text-white transition-colors font-bold text-sm" href="/blog/okx-app-download">
+                    下载 OKX App 体验模拟交易 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
 </div>
 </div>
 <div class="recommendations-injected mt-12 pt-8 border-t border-white/10"><h3 class="text-xl font-bold text-white mb-6">推荐阅读</h3><div class="grid md:grid-cols-2 gap-4"><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/okx-boost"><h4 class="text-white font-bold mb-2">OKX Boost 怎么刷？ 最新规则与低成本刷分教程</h4><p class="text-xs text-txt-muted line-clamp-2">OKX Boost 刷分保姆级教程。全面解析 最新积分规则、交易量加成策略及防刷量机制，助您低成本获取空投奖励与项目白名单。</p></a><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/okx-btc"><h4 class="text-white font-bold mb-2">OKX BTC 交易指南：现货、合约与比特币生态全解析</h4><p class="text-xs text-txt-muted line-clamp-2">全面解析 OKX 平台的比特币 (BTC) 交易功能。从高杠杆合约、现货买卖到 xBTC 跨链与 BRC-20 铭文生态，助您掌握 BTC 投资策略。</p></a><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/okx-c2c"><h4 class="text-white font-bold mb-2">OKX C2C 交易全攻略：0手续费、安全买币与防冻卡指南</h4><p class="text-xs text-txt-muted line-clamp-2">全面解析 OKX C2C 交易（法币交易）。从新手买币流程、商家筛选技巧到防冻卡安全策略，助您 0 手续费安全出入金。</p></a><a class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" href="/blog/okx-wallet"><h4 class="text-white font-bold mb-2">OKX Wallet 是什么？ 新手指南：下载、注册与 Chrome 插件使用</h4><p class="text-xs text-txt-muted line-clamp-2">全面解析 OKX Wallet (欧易 Web3 钱包)。从非托管安全机制、多链支持到 OKX Wallet Extension 插件下载与注册教程，助您一站式管理 Web3 资产。</p></a></div></div></article>
-<aside class="lg:col-span-4 space-y-8"><div class="sticky top-24 space-y-6"><div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a1a1a] to-black border border-white/10 group hover:border-primary/50 transition-all duration-500 shadow-2xl"><div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-[50px] group-hover:bg-primary/30 transition-all duration-500"></div><div class="p-6 relative z-10 text-center"><div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-4">限时福利</div><h3 class="text-2xl font-black text-white mb-2">注册 OKX</h3><p class="text-sm text-txt-muted mb-6">领取最高 100 USDT 数字货币盲盒</p><a class="block w-full py-3.5 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300" href="/#hero">立即领取</a></div></div><div class="bg-card/50 backdrop-blur-sm border border-white/5 rounded-3xl p-6"><h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4 opacity-80">最新文章 (Latest)</h4><ul class="space-y-4"><li><a class="group flex gap-3 items-start" href="/blog/okx-boost"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX Boost 怎么刷？ 最新规则与低成本刷分教程</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-btc"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX BTC 交易指南：现货、合约与比特币生态全解析</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-c2c"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX C2C 交易全攻略：0手续费、安全买币与防冻卡指南</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-wallet"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX Wallet 是什么？ 新手指南：下载、注册与 Chrome 插件使用</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-api"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX API 开发者指南：V5 接口文档、Python 示例与量化交易教程</h5></div></a></li></ul></div></div></aside>
+<aside class="lg:col-span-4 space-y-8"><div class="sticky top-24 space-y-6"><div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a1a1a] to-black border border-white/10 group hover:border-primary/50 transition-all duration-500 shadow-2xl"><div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-[50px] group-hover:bg-primary/30 transition-all duration-500"></div><div class="p-6 relative z-10 text-center"><div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-4">限时福利</div><h3 class="text-2xl font-black text-white mb-2">注册 OKX</h3><p class="text-sm text-txt-muted mb-6">领取最高 100 USDT 数字货币盲盒</p><a class="block w-full py-3.5 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300" href="/#hero">立即领取</a></div></div><div class="bg-card/50 backdrop-blur-sm border border-white/5 rounded-3xl p-6"><h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4 opacity-80">最新文章 (Latest)</h4><ul class="space-y-4"><li><a class="group flex gap-3 items-start" href="/blog/okx-boost"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX Boost 怎么刷？ 最新规则与低成本刷分教程</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-btc"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX BTC 交易指南：现货、合约与比特币生态全解析</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-c2c"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX C2C 交易全攻略：0手续费、安全买币与防冻卡指南</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/okx-wallet"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">OKX Wallet 是什么？ 新手指南：下载、注册与 Chrome 插件使用</h5></div></a></li><li><a class="group flex gap-3 items-start" href="/blog/how-to-deposit-on-okx"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-primary transition-colors flex-shrink-0"></span><div><h5 class="text-sm text-txt-muted group-hover:text-white transition-colors line-clamp-2 leading-relaxed">欧易充值教程： 最新欧易怎么充值/入金全攻略 (含USDT/法币)</h5></div></a></li></ul></div></div></aside>
 </main>
 <footer class="pt-16 pb-8 px-6 border-t border-white/5 bg-page relative overflow-hidden">
 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
