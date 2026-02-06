@@ -3,18 +3,22 @@ import glob
 import json
 from bs4 import BeautifulSoup
 import re
-from datetime import datetime
+import datetime
 
 # Configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX_PATH = os.path.join(BASE_DIR, 'index.html')
 BLOG_DIR = os.path.join(BASE_DIR, 'blog')
+
+# Global Today (for new posts only)
+TODAY = datetime.date.today().strftime('%Y-%m-%d')
+
 LEGAL_DIR = os.path.join(BASE_DIR, 'legal')
 HELP_DIR = os.path.join(BASE_DIR, 'help')
 SITEMAP_PATH = os.path.join(BASE_DIR, 'sitemap.xml')
 
 # Icons & Categories
-TODAY = datetime.now().strftime('%Y-%m-%d')
+# TODAY = datetime.now().strftime('%Y-%m-%d')
 
 CATEGORY_ICONS = {
     'Security': '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>',
@@ -120,6 +124,21 @@ def extract_blog_metadata():
             if time_tag and time_tag.get('datetime'):
                 date = time_tag['datetime']
             
+        # Priority 3: Extract from filename (if format YYYY-MM-DD-title.html)
+        # Not applicable here as filenames are slugs.
+        
+        # Priority 4: Fallback to TODAY (but warn or handle)
+        # If schema and time tag are missing, it defaults to TODAY.
+        # However, for existing files, we might want to keep their original date if not found.
+        # But we don't have a database.
+        
+        # FIX: Ensure we don't accidentally use TODAY if the file has an older date in <time>
+        # The logic above does this: if date is still TODAY (meaning schema didn't set it), check <time>.
+        # If <time> exists, use it. If not, it remains TODAY.
+        # This seems correct for *reading*, but we need to ensure we don't *overwrite* it with TODAY in process_pages unless intended.
+
+
+            
         posts.append({
             'title': title,
             'desc': desc,
@@ -131,6 +150,12 @@ def extract_blog_metadata():
         
     # Sort by date (if possible) or just reverse
     posts.sort(key=lambda x: x['date'], reverse=True)
+    
+    # Debug: Print extracted posts
+    print(f"Extracted {len(posts)} posts:")
+    for p in posts:
+        print(f"  - {p['title']} ({p['date']})")
+        
     return posts
 
 def update_sitemap(posts):
@@ -363,6 +388,7 @@ def update_index_blog_section(soup, posts):
         # Meta info
         meta_div = soup.new_tag('div', **{'class': 'text-xs text-txt-muted mb-3 flex items-center gap-2'})
         time_tag = soup.new_tag('time')
+        # Use post['date'] which was extracted from the file (or schema), not TODAY
         time_tag.string = post['date']
         meta_div.append(time_tag)
         content_div.append(meta_div)
